@@ -1,6 +1,6 @@
 displayName = Communist Terraria
 author = Karl Marx
-version = 0.1
+version = 1.922
 hideCode = true
 hideResources = true
 includeSource = false

@@ -13,3 +13,11 @@ I. Communism is already acknowledged by all European powers to be itself a power
 II. It is high time that Communists should openly, in the face of the whole world, publish their views, their aims, their tendencies, and meet this nursery tale of the Spectre of Communism with a manifesto of the party itself.
 
 To this end, Communists of various nationalities have assembled in London and sketched the following manifesto, to be published in the English, French, German, Italian, Flemish and Danish languages.
+
+View the enite Communist Manifesto at: https://www.marxists.org/archive/marx/works/1848/communist-manifesto/
+
+
+
+Whats new?
+v1.992.12.30
+- Mod is designated as client only. 

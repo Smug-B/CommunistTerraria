@@ -13,40 +13,116 @@ namespace CommunistTerraria
 {
 	public class CommunistTerraria : Mod
 	{
-		private static Texture2D OurLogo;
+		public static Mod Mod { get; private set; }
 
-		private static Texture2D OurBackground;
+		public CommunistTerraria()
+		{
+			Mod = this;
+			InternalLogoName = string.Empty;
+		}
+
+		internal static string SelectedMusic { get; set; } = "State Anthem Of The USSR";
+
+		public static int OurMusic
+		{
+			get
+			{
+				string internalName = SelectedMusic.Replace(" ", string.Empty).Replace("'", string.Empty);
+				return Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/" + internalName);
+			}
+		}
+
+		internal static string SelectedBackground { get; set; } = "Flag Of The Soviet Union";
+
+		private static (Texture2D texture, string name) InternalBackground;
+
+		public static Texture2D OurBackground
+		{
+			get
+			{
+				if (InternalBackground.name == SelectedBackground)
+				{
+					return InternalBackground.texture;
+				}
+
+				string internalName = SelectedBackground.Replace(" ", string.Empty).Replace("'", string.Empty);
+				Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/" + internalName);
+				Color[] textureData = new Color[baseTexture.Width * baseTexture.Height];
+				baseTexture.GetData(textureData);
+				InternalBackground.texture = new Texture2D(Main.instance.GraphicsDevice, baseTexture.Width, baseTexture.Height);
+				InternalBackground.texture.SetData(textureData);
+				InternalBackground.name = SelectedBackground;
+				return InternalBackground.texture;
+			}
+		}
+
+		internal static string SelectedLogo { get; set; } = "State Emblem Of The Soviet Union";
+
+		private static Texture2D InternalLogoTexture;
+
+		private static string InternalLogoName;
+
+		public static void UpdateOurLogo()
+		{
+			if (InternalLogoName == SelectedLogo)
+			{
+				return;
+			}
+
+			string internalName = SelectedLogo.Replace(" ", string.Empty).Replace("'", string.Empty);
+			Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/" + internalName);
+			Color[] textureData = new Color[baseTexture.Width * baseTexture.Height];
+			baseTexture.GetData(textureData);
+			InternalLogoTexture = new Texture2D(Main.instance.GraphicsDevice, baseTexture.Width, baseTexture.Height);
+			InternalLogoTexture.SetData(textureData);
+			InternalLogoName = SelectedLogo;
+			return;
+		}
 
 		public override void Close()
 		{
-			int anthemSlot = GetSoundSlot(SoundType.Music, "Sounds/Music/StateAnthemOfTheUSSR");
-			if (Main.music.IndexInRange(anthemSlot) && Main.music[anthemSlot]?.IsPlaying == true)
+			void CloseMusicStream(int slot)
 			{
-				Main.music[anthemSlot].Stop(AudioStopOptions.Immediate);
+				if (Main.music.IndexInRange(slot) && Main.music[slot]?.IsPlaying == true)
+				{
+					Main.music[slot].Stop(AudioStopOptions.Immediate);
+				}
 			}
+
+			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/StateAnthemOfTheUSSR"));
+			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/TheInternationale"));
+			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/TheArtillerymansSong"));
+			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/MarchOfTheDefendersOfMoscow"));
+
 			base.Close();
+		}
+
+		public static void UpdateMusic()
+		{
+			IL.Terraria.Main.UpdateAudio -= Main_UpdateAudio;
+			IL.Terraria.Main.UpdateAudio += Main_UpdateAudio;
+		}
+
+		public static void UpdateLogo()
+		{
+			IL.Terraria.Main.DrawMenu -= Main_DrawMenu;
+			IL.Terraria.Main.DrawMenu += Main_DrawMenu;
 		}
 
 		public override void PostSetupContent()
 		{
 			DecideTitle();
 
-			if (OurLogo is null) // tMod disposes all textures on unload, so we need a clone to ensure a crash does not happen
-			{
-				Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/StateEmblemOfTheSovietUnion");
-				Color[] logoData = new Color[baseTexture.Width * baseTexture.Height];
-				baseTexture.GetData(logoData);
-				OurLogo = new Texture2D(Main.instance.GraphicsDevice, baseTexture.Width, baseTexture.Height);
-				OurLogo.SetData(logoData);
-			}
+			UpdateOurLogo();
 
-			if (OurBackground is null)
+			if (InternalBackground.texture is null) // tMod disposes all textures on unload, so we need a clone to ensure a crash does not happen
 			{
 				Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/FlagOfTheSovietUnion");
-				Color[] backgroundData = new Color[baseTexture.Width * baseTexture.Height];
-				baseTexture.GetData(backgroundData);
-				OurBackground = new Texture2D(Main.instance.GraphicsDevice, baseTexture.Width, baseTexture.Height);
-				OurBackground.SetData(backgroundData);
+				Color[] logoData = new Color[baseTexture.Width * baseTexture.Height];
+				baseTexture.GetData(logoData);
+				InternalBackground.texture = new Texture2D(Main.instance.GraphicsDevice, baseTexture.Width, baseTexture.Height);
+				InternalBackground.texture.SetData(logoData);
+				InternalBackground.name = "Flag Of The Soviet Union";
 			}
 
 			IL.Terraria.Main.UpdateAudio += Main_UpdateAudio;
@@ -122,39 +198,37 @@ namespace CommunistTerraria
 			Main.instance.Window.Title = moniker + ": " + Utils.SelectRandom(Main.rand, possibleAppendages);
 		}
 
-		private void Main_UpdateAudio(ILContext il)
+		private static void Main_UpdateAudio(ILContext il)
 		{
 			ILCursor cursor = new ILCursor(il);
 
 			if (!cursor.TryGotoNext(i => i.MatchLdcI4(6)))
 			{
-				Logger.Info("IL Editing Failed.");
+				Mod.Logger.Info("IL Editing Failed.");
 				return;
 			}
 
 			if (!cursor.TryGotoNext(i => i.MatchLdcI4(6)))
 			{
-				Logger.Info("ILEditing Failed at second check.");
+				Mod.Logger.Info("ILEditing Failed at second check.");
 				return;
 			}
 
 			cursor.Index++;
-
 			cursor.Emit(OpCodes.Pop);
-
-			cursor.Emit(OpCodes.Ldc_I4, GetSoundSlot(SoundType.Music, "Sounds/Music/StateAnthemOfTheUSSR"));
+			cursor.Emit(OpCodes.Ldc_I4, OurMusic);
 		}
 
-		private void Main_DrawMenu(ILContext il)
+		private static void Main_DrawMenu(ILContext il)
 		{
 			ILCursor cursor = new ILCursor(il);
-			FieldInfo ourLogo = GetType().GetField("OurLogo", BindingFlags.NonPublic | BindingFlags.Static);
+			FieldInfo ourLogo = Mod.GetType().GetField("InternalLogoTexture", BindingFlags.NonPublic | BindingFlags.Static);
 
 			for (int count = 0; count < 9; count++)
 			{
 				if (!cursor.TryGotoNext(i => i.MatchLdsfld(typeof(Main).GetField("logoTexture", BindingFlags.Public | BindingFlags.Static))))
 				{
-					Logger.Info("Drawing IL edit failed.");
+					Mod.Logger.Info("Drawing IL edit failed.");
 					return;
 				}
 				cursor.Index++;
@@ -164,7 +238,7 @@ namespace CommunistTerraria
 
 			if (!cursor.TryGotoPrev(i => i.MatchLdsfld(typeof(Main).GetField("logo2Texture", BindingFlags.Public | BindingFlags.Static))))
 			{
-				Logger.Info("Drawing second IL edit failed.");
+				Mod.Logger.Info("Drawing second IL edit failed.");
 				return;
 			}
 			cursor.Index++;
@@ -173,7 +247,7 @@ namespace CommunistTerraria
 
 			if (!cursor.TryGotoPrev(i => i.MatchLdcR4(110f)))
 			{
-				Logger.Info("Drawing third IL edit failed.");
+				Mod.Logger.Info("Drawing third IL edit failed.");
 				return;
 			}
 			cursor.Index++;
@@ -182,7 +256,7 @@ namespace CommunistTerraria
 
 			if (!cursor.TryGotoNext(i => i.MatchLdcR4(110f)))
 			{
-				Logger.Info("Drawing fourth IL edit failed.");
+				Mod.Logger.Info("Drawing fourth IL edit failed.");
 				return;
 			}
 			cursor.Index++;
@@ -196,6 +270,10 @@ namespace CommunistTerraria
 			orig.Invoke(self, gameTime);
 			Main.dayTime = true;
 			Main.time = 27000;
+			Main.LogoA = 255;
+			Main.LogoB = 0;
+
+			UpdateOurLogo();
 		}
 
 		private void Main_DrawSurfaceBG(On.Terraria.Main.orig_DrawSurfaceBG orig, Main self)

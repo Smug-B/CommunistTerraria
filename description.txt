@@ -1,5 +1,11 @@
 Gives Terraria a communist aesthetic while in the main menu.
 
+Whats new comrades?
+v1.992.12.31
+- New config allowing for a greater variety for communist aesthetics
+v1.992.12.30
+- Mod is designated as client only. 
+
 
 
 A spectre is haunting Europe — the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
@@ -14,10 +20,4 @@ II. It is high time that Communists should openly, in the face of the whole worl
 
 To this end, Communists of various nationalities have assembled in London and sketched the following manifesto, to be published in the English, French, German, Italian, Flemish and Danish languages.
 
-View the enite Communist Manifesto at: https://www.marxists.org/archive/marx/works/1848/communist-manifesto/
-
-
-
-Whats new?
-v1.992.12.30
-- Mod is designated as client only. 
+View the entire Communist Manifesto at: https://www.marxists.org/archive/marx/works/1848/communist-manifesto/

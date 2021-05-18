@@ -54,13 +54,18 @@ namespace CommunistTerraria
 		{
 			SafeForAssets = true;
 
-			DecideTitle();
+			DecideOurTitle();
 
 			UpdateOurLogo();
 
-			SetupStaticIconFields();
+			SetupOurStaticIconFields();
 
 			UpdateOurIconReflection();
+
+			if (CommifyText)
+				CommifyOurText();
+			if (CommifyImages)
+				CommifyOurImages();
 
 			if (InternalBackground.texture is null) // tMod disposes all textures on unload, so we need a clone to ensure a crash does not happen
 			{
@@ -79,7 +84,7 @@ namespace CommunistTerraria
 			On.Terraria.UI.UIElement.Update += UIElement_Update;
 		}
 
-		private static void DecideTitle()
+		private static void DecideOurTitle()
 		{
 			string moniker = "Union of Soviet Socialist Republics";
 

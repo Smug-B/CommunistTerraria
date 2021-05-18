@@ -25,7 +25,7 @@ namespace CommunistTerraria
 
 		public static FieldInfo ModIconField;
 
-		public static void SetupStaticIconFields()
+		public static void SetupOurStaticIconFields()
 		{
 			// Sets up the Type variables needed for this reflection
 			string classDirectory = "Terraria.ModLoader.UI";

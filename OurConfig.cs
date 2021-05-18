@@ -44,6 +44,18 @@ namespace CommunistTerraria
 		[Label("Our choice of mod icon")]
 		public string IconSelection;
 
+		[Header("Communism Conversions")]
+		[Tooltip("Allows Us to commify Our game text.")]
+		[Label("Text Commifier")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CommifyEverything;
+
+		[Tooltip("Allows Us to commify Our images")]
+		[Label("Image Commifier")]
+		[DefaultValue(false)]
+		public bool OurSuperCommunismMode;
+
 		public override void OnChanged()
 		{
 			if (CommunistTerraria.SelectedMusic != MusicSelection)
@@ -72,6 +84,16 @@ namespace CommunistTerraria
 
 				CommunistTerraria.UpdateOurIconReflection();
 			}
+
+			if (CommunistTerraria.CommifyText != CommifyEverything)
+            {
+				CommunistTerraria.CommifyText = CommifyEverything;
+            }
+
+			if (CommunistTerraria.CommifyImages != OurSuperCommunismMode)
+            {
+				CommunistTerraria.CommifyImages = OurSuperCommunismMode;
+            }
 		}
 	}
 }

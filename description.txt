@@ -1,12 +1,13 @@
 Gives Terraria a communist aesthetic while in the main menu.
 
 Whats new comrades?
-v1.992.12.31
+v1.923.01.01
+- Expanded our config options! ( 10 total background choices, 5 different music choice, 3 different icon choice )
+- Possibly fixed crashing issue when loading with cheat sheet and heros mod
+v1.922.12.31
 - New config allowing for a greater variety for communist aesthetics
-v1.992.12.30
+v1.922.12.30
 - Mod is designated as client only. 
-
-
 
 A spectre is haunting Europe — the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
 

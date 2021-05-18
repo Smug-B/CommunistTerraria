@@ -1,6 +1,6 @@
 displayName = Communist Terraria
 author = Karl Marx & Friedrich Engels
-version = 1.922.12.31
+version = 1.923.01.01
 homepage = https://www.marxists.org/archive/marx/works/1848/communist-manifesto/
 side = Client
 hideCode = true

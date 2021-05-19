@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
@@ -6,48 +7,40 @@ namespace CommunistTerraria.UI
 {
     public class ManifestoUI : UIState
     {
+        private readonly string _manifesto;
         private UIPanel _mainPanel;
-        
+
+        public ManifestoUI(string manifesto) => _manifesto = manifesto;
+
         public override void OnInitialize()
         {
             _mainPanel = new UIPanel
             {
                 HAlign = .75f,
                 VAlign = .5f,
-                Width = new StyleDimension(500, 0),
-                Height = new StyleDimension(600, 0),
+                Width = new StyleDimension(550, 0),
+                Height = new StyleDimension(650, 0),
             };
             Append(_mainPanel);
 
-            string lorem = "Glutens sunt devirginatos de fatalis ignigena. Mensas ire! Sunt sagaes convertam peritus, salvus cliniases.";
-            IEnumerable<string> split = SplitText(lorem);
-            
-            UIText simpleText = new UIText(string.Join("\n", split))
+            IEnumerable<IEnumerable<string>> pages = SplitPages(_manifesto);
+
+            UIText simpleText = new UIText(string.Join("\n", pages.First()))
             {
                 HAlign = 0f,
                 VAlign = 0f,
-                // Width = new StyleDimension(0, .99f),
                 Height = new StyleDimension(_mainPanel.Height.Pixels - 100, 0),
-                // Left = new StyleDimension(0, 0)
             };
             _mainPanel.Append(simpleText);
         }
 
-        private IEnumerable<string> SplitText(string text, int limit = 60)
+        private static IEnumerable<IEnumerable<string>> SplitPages(string manifesto, int lineCount = 20)
         {
-            string part = string.Empty;
-            foreach (string word in text.Split(' '))
+            List<string> lines = manifesto.Split('\n').ToList();
+            for (int i = 0; i < lines.Count; i += lineCount)
             {
-                if (part.Length + word.Length < limit)
-                    part += string.IsNullOrEmpty(part) ? word : " " + word;
-                else
-                {
-                    yield return part;
-                    part = word;
-                }
+                yield return lines.GetRange(i, lineCount);
             }
-
-            yield return part;
         }
     }
 }

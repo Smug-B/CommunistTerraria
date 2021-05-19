@@ -44,17 +44,27 @@ namespace CommunistTerraria
 		[Label("Our choice of mod icon")]
 		public string IconSelection;
 
-		[Header("Communism Conversions")]
-		[Tooltip("Allows Us to commify Our game text.")]
-		[Label("Text Commifier")]
-		[ReloadRequired]
-		[DefaultValue(true)]
-		public bool CommifyEverything;
-
-		[Tooltip("Allows Us to commify Our images")]
-		[Label("Image Commifier")]
+		[Header("Screenshader")]
+		[Tooltip("Toggles the screenshader")]
+		[Label("Our choice of whether to shade the screen")]
+		[BackgroundColor(255, 216, 0)]
 		[DefaultValue(false)]
-		public bool OurSuperCommunismMode;
+		public bool ShaderActive;
+
+		[DrawTicks]
+		[BackgroundColor(255, 216, 0)]
+		[SliderColor(205, 0, 0)]
+		[OptionStrings(new string[] { "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space" })]
+		[DefaultValue("Flag Of The Soviet Union")]
+		[Label("Our choice of screenshader")]
+		public string ShaderSelection;
+
+		[Range(0f, 1f)]
+		[Increment(0.01f)]
+		[BackgroundColor(255, 216, 0)]
+		[DefaultValue(0.5f)]
+		[Label("Our choice of screenshader intensity")]
+		public float ShaderIntensity;
 
 		public override void OnChanged()
 		{
@@ -77,23 +87,26 @@ namespace CommunistTerraria
 			{
 				CommunistTerraria.SelectedIcon = IconSelection;
 
-				if (CommunistTerraria.OurIcon is null)
+				if (CommunistTerraria.OurIcon != null)
 				{
-					return;
+					CommunistTerraria.UpdateOurIconReflection();
 				}
-
-				CommunistTerraria.UpdateOurIconReflection();
 			}
 
-			if (CommunistTerraria.CommifyText != CommifyEverything)
-            {
-				CommunistTerraria.CommifyText = CommifyEverything;
-            }
+			if (CommunistTerraria.OurShaderActive != ShaderActive)
+			{
+				CommunistTerraria.OurShaderActive = ShaderActive;
+			}
 
-			if (CommunistTerraria.CommifyImages != OurSuperCommunismMode)
-            {
-				CommunistTerraria.CommifyImages = OurSuperCommunismMode;
-            }
+			if (CommunistTerraria.SelectedReference != ShaderSelection)
+			{
+				CommunistTerraria.SelectedReference = ShaderSelection;
+			}
+
+			if (CommunistTerraria.OurShaderIntensity != ShaderIntensity)
+			{
+				CommunistTerraria.OurShaderIntensity = ShaderIntensity;
+			}
 		}
 	}
 }

@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using System;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 
 namespace CommunistTerraria
 {
@@ -52,15 +50,6 @@ namespace CommunistTerraria
 			base.Close();
 		}
 
-		public override void Load()
-		{
-			if (!Main.dedServ)
-			{
-				Filters.Scene["OurScreenShader"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/OurScreenShader")), "OurScreenShader"), EffectPriority.VeryHigh);
-				Filters.Scene["OurScreenShader"].Load();
-			}
-		}
-
 		public override void PostSetupContent()
 		{
 			SafeForAssets = true;
@@ -73,12 +62,10 @@ namespace CommunistTerraria
 
 			UpdateOurIconReflection();
 
-			CommifyOurText();
-
+			if (CommifyText)
+				CommifyOurText();
 			if (CommifyImages)
-			{
 				CommifyOurImages();
-			}
 
 			if (InternalBackground.texture is null) // tMod disposes all textures on unload, so we need a clone to ensure a crash does not happen
 			{
@@ -95,11 +82,6 @@ namespace CommunistTerraria
 			On.Terraria.Main.DrawMenu += Main_DrawMenu1;
 			On.Terraria.UI.UIElement.Append += UIElement_Append;
 			On.Terraria.UI.UIElement.Update += UIElement_Update;
-		}
-
-		public override void Unload()
-		{
-			UnloadOurTextChanges();
 		}
 
 		private static void DecideOurTitle()

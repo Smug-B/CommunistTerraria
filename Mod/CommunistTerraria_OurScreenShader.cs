@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
@@ -14,7 +12,7 @@ namespace CommunistTerraria
 
 		public static string SelectedReference { get; internal set; } = "Flag Of The Soviet Union";
 
-		public override void PostUpdateEverything()
+		public void HandleOurShader()
 		{
 			if (!OurShaderActive)
 			{

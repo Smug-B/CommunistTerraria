@@ -65,20 +65,13 @@ namespace CommunistTerraria
 		{
 			SafeForAssets = true;
 
-			DecideOurTitle();
+			//DecideOurTitle();
 
 			UpdateOurLogo();
 
 			SetupOurStaticIconFields();
 
 			UpdateOurIconReflection();
-
-			CommifyOurText();
-
-			if (CommifyImages)
-			{
-				CommifyOurImages();
-			}
 
 			if (InternalBackground.texture is null) // tMod disposes all textures on unload, so we need a clone to ensure a crash does not happen
 			{
@@ -87,14 +80,26 @@ namespace CommunistTerraria
 				InternalBackground.name = "Flag Of The Soviet Union";
 			}
 
+			UpdateOurStars();
+
+			UpdateOurMoons();
+
 			UpdateOurIcon();
 
 			IL.Terraria.Main.UpdateAudio += Main_UpdateAudio;
 			IL.Terraria.Main.DrawMenu += Main_DrawMenu;
+			IL.Terraria.Main.DoDraw += Main_DoDraw;
 			On.Terraria.Main.DrawSurfaceBG += Main_DrawSurfaceBG;
 			On.Terraria.Main.DrawMenu += Main_DrawMenu1;
 			On.Terraria.UI.UIElement.Append += UIElement_Append;
 			On.Terraria.UI.UIElement.Update += UIElement_Update;
+
+			CommifyOurText();
+
+			if (CommifyImages)
+			{
+				CommifyOurImages();
+			}
 		}
 
 		public override void Unload()
@@ -178,6 +183,15 @@ namespace CommunistTerraria
 			Main.LogoB = 0;
 			UpdateOurLogo();
 			UpdateOurIcon();
+		}
+
+		public override void PostUpdateEverything()
+		{
+			HandleOurShader();
+
+			UpdateOurStars();
+
+			UpdateOurMoons();
 		}
 	}
 }

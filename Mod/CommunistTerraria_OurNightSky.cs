@@ -24,7 +24,7 @@ namespace CommunistTerraria
 			}
 
 			string internalName = SelectedStars.Replace(" ", string.Empty).Replace("'", string.Empty);
-			Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/Sky/" + internalName);
+			Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/Star/" + internalName);
 			InternalStarTexture = ClonedTexture(baseTexture);
 			InternalStarName = SelectedStars;
 			return;
@@ -44,7 +44,7 @@ namespace CommunistTerraria
 			}
 
 			string internalName = SelectedMoon.Replace(" ", string.Empty).Replace("'", string.Empty);
-			Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/Sky/" + internalName);
+			Texture2D baseTexture = ModContent.GetTexture("CommunistTerraria/Textures/Moon/" + internalName);
 			InternalMoonTexture = ClonedTexture(baseTexture);
 			InternalMoonName = SelectedMoon;
 			return;

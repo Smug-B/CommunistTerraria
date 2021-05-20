@@ -1,6 +1,13 @@
 Gives Terraria a communist aesthetic while in the main menu.
 
 Whats new comrades?
+v1.923.01.02
+- Added customization settings to our mod icon when the mod is loaded.
+- Thanks to some of our comrades, we are able to add configurations allowing customization of game text!
+- Thanks to some of our comrades, we have developed a seperate Communist Terraria ( Content ) allowing players to spawn in with a copy of the greatest literature!
+- Added customization settings ingame!
+- Players can now add a tint of a selected background as an ever present reminder on the glory of communism!
+- Players can now customize our night sky! Replacing the moon and the stars with valued comrades and symbols!
 v1.923.01.01
 - Expanded our config options! ( 10 total background choices, 5 different music choice, 3 different icon choice )
 - Possibly fixed crashing issue when loading with cheat sheet and heros mod

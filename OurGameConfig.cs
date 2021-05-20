@@ -42,7 +42,7 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "Comrade Marx", "Comrade Stalin" })]
+		[OptionStrings(new string[] { "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin", "Hammer And Sickle" })]
 		[DefaultValue("Comrade Marx")]
 		[Label("Our choice of moon")]
 		public string MoonSelection;

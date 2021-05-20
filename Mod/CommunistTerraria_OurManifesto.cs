@@ -4,6 +4,7 @@ using System.Text;
 using CommunistTerraria.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace CommunistTerraria
@@ -15,16 +16,24 @@ namespace CommunistTerraria
 
         private void LoadManifesto()
         {
-            if (Main.dedServ) return;
-            
-            byte[] manifestoBytes = GetFileBytes("manifesto.txt");
-            _manifesto = Main.fontMouseText.CreateWrappedText(Encoding.UTF8.GetString(manifestoBytes), 524);
-
             _manifestoInterface = new UserInterface();
+
+            if (!string.IsNullOrEmpty(_manifesto)) return;
+
+            if (ModLoader.GetMod("CommunistTerrariaContent") != null)
+            {
+                byte[] manifestoBytes = GetFileBytes("manifesto.txt");
+                _manifesto = Main.fontMouseText.CreateWrappedText(Encoding.UTF8.GetString(manifestoBytes), 518);
+            }
         }
 
         public void ToggleManifestoUI(bool? forceState = null)
         {
+            if (string.IsNullOrEmpty(_manifesto))
+			{
+                return;
+			}
+
 #if DEBUG
             Main.NewText($"Toggling manifesto ui, old state is: {_manifestoInterface.CurrentState}");
 #endif
@@ -47,10 +56,9 @@ namespace CommunistTerraria
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseLayerIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
-            if (mouseLayerIndex == 1)
-                return;
-            
-            layers.Insert(mouseLayerIndex, new LegacyGameInterfaceLayer(
+            if (mouseLayerIndex != -1)
+            {
+                layers.Insert(mouseLayerIndex, new LegacyGameInterfaceLayer(
                 "CommunistTerraria: Our Manifesto UI",
                 delegate
                 {
@@ -58,11 +66,9 @@ namespace CommunistTerraria
                     return true;
                 },
                 InterfaceScaleType.UI));
+            }
         }
 
-        public override void UpdateUI(GameTime gameTime)
-        {
-            _manifestoInterface?.Update(gameTime);
-        }
+        public override void UpdateUI(GameTime gameTime) => _manifestoInterface?.Update(gameTime);
     }
 }

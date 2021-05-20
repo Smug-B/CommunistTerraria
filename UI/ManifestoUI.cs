@@ -13,7 +13,7 @@ namespace CommunistTerraria.UI
     public class ManifestoUI : UIState
     {
         private readonly string _manifesto;
-        private UIPanel _mainPanel;
+        private UIImage _mainPanel;
         private UIText _mainText;
         private UIText _currentPageText;
         private int _currentPage;
@@ -23,7 +23,8 @@ namespace CommunistTerraria.UI
 
         public override void OnInitialize()
         {
-            _mainPanel = new UIPanel
+            Texture2D background = ModContent.GetInstance<CommunistTerraria>().GetTexture("Textures/UI/ManifestoBackground");
+            _mainPanel = new UIImage(background)
             {
                 HAlign = .75f,
                 VAlign = .5f,
@@ -36,13 +37,15 @@ namespace CommunistTerraria.UI
 
             _mainText = new UIText(string.Join("\n", _pages.First()))
             {
-                HAlign = 0f,
+                Top = new StyleDimension(16, 0),
+                Left = new StyleDimension(16, 0),
                 VAlign = 0f,
                 Height = new StyleDimension(_mainPanel.Height.Pixels - 100, 0),
             };
             _mainPanel.Append(_mainText);
 
-            UIPanel pagePanel = new UIPanel
+            Texture2D panel = ModContent.GetInstance<CommunistTerraria>().GetTexture("Textures/UI/ManifestoPanel");
+            UIImage pagePanel = new UIImage(panel)
             {
                 Top = new StyleDimension(_mainPanel.Height.Pixels - 75, 0),
                 HAlign = .5f,
@@ -51,18 +54,18 @@ namespace CommunistTerraria.UI
             };
             _mainPanel.Append(pagePanel);
 
-            Texture2D flippedPlayTexture = ModContent.GetInstance<CommunistTerraria>().GetTexture("Textures/FlippedButtonPlay");
-            UIImageButton backButton = new UIImageButton(flippedPlayTexture)
+            Texture2D back = ModContent.GetInstance<CommunistTerraria>().GetTexture("Textures/UI/ManifestoBack");
+            UIImageButton backButton = new UIImageButton(back)
             {
-                Left = new StyleDimension(0, 0),
+                Left = new StyleDimension(28, 0),
                 VAlign = 0.5f,
                 Width = new StyleDimension(25, 0f)
             };
             backButton.OnClick += BackClicked;
             pagePanel.Append(backButton);
 
-            Texture2D playTexture = ModContent.GetTexture("Terraria/UI/ButtonPlay");
-            UIImageButton nextButton = new UIImageButton(playTexture)
+            Texture2D forward = ModContent.GetInstance<CommunistTerraria>().GetTexture("Textures/UI/ManifestoForward");
+            UIImageButton nextButton = new UIImageButton(forward)
             {
                 Left = new StyleDimension(150, 0),
                 VAlign = 0.5f,

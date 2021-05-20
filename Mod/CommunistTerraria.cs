@@ -54,6 +54,8 @@ namespace CommunistTerraria
 
 		public override void Load()
 		{
+			LoadManifesto();
+
 			if (!Main.dedServ)
 			{
 				Filters.Scene["OurScreenShader"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/OurScreenShader")), "OurScreenShader"), EffectPriority.VeryHigh);
@@ -171,7 +173,7 @@ namespace CommunistTerraria
 				"Order No.227: Not a step back!",
 			};
 
-			Main.instance.Window.Title = moniker + ": " + Utils.SelectRandom(Main.rand, possibleAppendages);
+			// Main.instance.Window.Title = moniker + ": " + Utils.SelectRandom(Main.rand, possibleAppendages);
 		}
 
 		private void Main_DrawMenu1(On.Terraria.Main.orig_DrawMenu orig, Main self, GameTime gameTime)

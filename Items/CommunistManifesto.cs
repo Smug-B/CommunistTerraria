@@ -4,23 +4,25 @@ using Terraria.ModLoader;
 
 namespace CommunistTerraria.Items
 {
-    public class ManifestoItem : ModItem
+    public class CommunistManifesto : ModItem
     {
         private static CommunistTerraria Mod => ModContent.GetInstance<CommunistTerraria>();
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The communist manifesto!");
-            Tooltip.SetDefault("Written by Karl Marx and Friedrich Engels\n" +
-                               "Left click when holding the manifesto to open the manifesto");
+            DisplayName.SetDefault("The Communist Manifesto");
+            Tooltip.SetDefault("-Karl Marx & Friedrich Engels"
+            + "\nLeft click when holding the manifesto to open the manifesto");
         }
 
         public override void SetDefaults()
         {
-            item.maxStack = 1;
+            item.width = 38;
+            item.height = 46;
+
             item.rare = ItemRarityID.Red;
-            item.useAnimation = 45;
-            item.useTime = 45;
+            item.useAnimation = 48;
+            item.useTime = 48;
             // item.noUseGraphic = true;
             item.useStyle = ItemUseStyleID.HoldingUp;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using CommunistTerraria.UI;
 using Microsoft.Xna.Framework;
@@ -17,7 +18,7 @@ namespace CommunistTerraria
             if (Main.dedServ) return;
             
             byte[] manifestoBytes = GetFileBytes("manifesto.txt");
-            _manifesto = Encoding.UTF8.GetString(manifestoBytes);
+            _manifesto = Main.fontMouseText.CreateWrappedText(Encoding.UTF8.GetString(manifestoBytes), 524);
 
             _manifestoInterface = new UserInterface();
         }

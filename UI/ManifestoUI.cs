@@ -42,8 +42,6 @@ namespace CommunistTerraria.UI
             };
             _mainPanel.Append(_mainText);
 
-
-
             UIPanel pagePanel = new UIPanel
             {
                 Top = new StyleDimension(_mainPanel.Height.Pixels - 75, 0),

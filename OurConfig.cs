@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace CommunistTerraria
@@ -12,8 +15,8 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "State Anthem Of The USSR", "The Internationale", "The Artilleryman's Song", "March Of The Defenders Of Moscow", "To Serve Russia" })]
-		[DefaultValue("State Anthem Of The USSR")]
+		[OptionStrings(new string[] { "Random", "State Anthem Of The USSR", "The Internationale", "The Artilleryman's Song", "March Of The Defenders Of Moscow", "To Serve Russia", "Red Sun In The Sky" })]
+		[DefaultValue("Random")]
 		[Label("Our choice of music")]
 		public string MusicSelection;
 
@@ -21,8 +24,8 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space" })]
-		[DefaultValue("Flag Of The Soviet Union")]
+		[OptionStrings(new string[] { "Random", "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space", "Red Sun In Our Hearts" })]
+		[DefaultValue("Random")]
 		[Label("Our choice of background")]
 		public string BackgroundSelection;
 
@@ -39,19 +42,27 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "Comrades Stalin And Lenin", "Our Leaders", "First Man In Space", "Moscow", "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin" })]
-		[DefaultValue("Comrades Stalin And Lenin")]
+		[OptionStrings(new string[] { "Random", "Comrades Stalin And Lenin", "Our Leaders", "First Man In Space", "Moscow", "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin", "Comrade Mao" })]
+		[DefaultValue("Random")]
 		[Label("Our choice of mod icon")]
 		public string IconSelection;
 
 		public override void OnChanged()
 		{
-			if (CommunistTerraria.SelectedMusic != MusicSelection)
+			if (MusicSelection.Equals("Random"))
+			{
+				CommunistTerraria.SelectedMusic = Utils.SelectRandom(Main.rand, "State Anthem Of The USSR", "The Internationale", "The Artilleryman's Song", "March Of The Defenders Of Moscow", "To Serve Russia", "Red Sun In The Sky");
+			}
+			else if (CommunistTerraria.SelectedMusic != MusicSelection)
 			{
 				CommunistTerraria.SelectedMusic = MusicSelection;
 			}
 
-			if (CommunistTerraria.SelectedBackground != BackgroundSelection)
+			if (BackgroundSelection.Equals("Random"))
+			{
+				CommunistTerraria.SelectedBackground = Utils.SelectRandom(Main.rand, "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space", "Red Sun In Our Hearts");
+			}
+			else if (CommunistTerraria.SelectedBackground != BackgroundSelection)
 			{
 				CommunistTerraria.SelectedBackground = BackgroundSelection;
 			}
@@ -61,7 +72,16 @@ namespace CommunistTerraria
 				CommunistTerraria.SelectedLogo = LogoSelection;
 			}
 
-			if (CommunistTerraria.SelectedIcon != IconSelection)
+			if (IconSelection.Equals("Random"))
+			{
+				CommunistTerraria.SelectedIcon = Utils.SelectRandom(Main.rand, "Comrades Stalin And Lenin", "Our Leaders", "First Man In Space", "Moscow", "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin", "Comrade Mao");
+
+				if (CommunistTerraria.OurIcon != null)
+				{
+					CommunistTerraria.UpdateOurIconReflection();
+				}
+			}
+			else if(CommunistTerraria.SelectedIcon != IconSelection)
 			{
 				CommunistTerraria.SelectedIcon = IconSelection;
 

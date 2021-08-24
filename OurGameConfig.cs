@@ -18,7 +18,7 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space" })]
+		[OptionStrings(new string[] { "Flag Of The Soviet Union", "Raising A Flag Over The Reichstag", "Our Leaders", "The Victory Of Communism", "Stalin The Great Helmsman", "Our Army", "Our Triumph In Space", "Forward! Victory Is Near", "Comrades Stalin And Lenin", "First Man In Space", "Red Sun In Our Hearts" })]
 		[DefaultValue("Flag Of The Soviet Union")]
 		[Label("Our choice of screenshader")]
 		public string ShaderSelection;
@@ -42,7 +42,7 @@ namespace CommunistTerraria
 		[DrawTicks]
 		[BackgroundColor(255, 216, 0)]
 		[SliderColor(205, 0, 0)]
-		[OptionStrings(new string[] { "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin", "Hammer And Sickle" })]
+		[OptionStrings(new string[] { "Comrade Marx", "Comrade Engels", "Comrade Lenin", "Comrade Stalin", "Comrade Mao", "Hammer And Sickle" })]
 		[DefaultValue("Comrade Marx")]
 		[Label("Our choice of moon")]
 		public string MoonSelection;

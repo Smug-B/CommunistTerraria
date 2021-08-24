@@ -1,6 +1,9 @@
 Gives Terraria a communist aesthetic while in the main menu.
 
 Whats new comrades?
+v1.923.01.03
+- Chairman Mao!
+- Random options introduced for mod icons, main menu backgrounds, and main menu music
 v1.923.01.02
 - Added customization settings to our mod icon when the mod is loaded.
 - Thanks to some of our comrades, we are able to add configurations allowing customization of game text!

@@ -29,7 +29,7 @@ namespace CommunistTerraria
 			ScreenShaderData ourScreenShaderData = Filters.Scene["OurScreenShader"].GetShader();
 			ourScreenShaderData.UseIntensity(OurShaderIntensity);
 			string internalName = SelectedReference.Replace(" ", string.Empty).Replace("'", string.Empty).Replace("!", string.Empty);
-			ourScreenShaderData.UseImage(ModContent.GetTexture("CommunistTerraria/Textures/ScreenShader/" + internalName));
+			ourScreenShaderData.UseImage(ModContent.GetTexture("CommunistTerraria/Textures/Background/" + internalName));
 			ourScreenShaderData.Shader.Parameters["active"].SetValue(true);
 		}
 	}

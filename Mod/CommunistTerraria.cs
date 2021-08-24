@@ -49,6 +49,7 @@ namespace CommunistTerraria
 			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/TheArtillerymansSong"));
 			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/MarchOfTheDefendersOfMoscow"));
 			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/ToServeRussia"));
+			CloseMusicStream(GetSoundSlot(SoundType.Music, "Sounds/Music/RedSunInTheSky"));
 			base.Close();
 		}
 
@@ -67,7 +68,7 @@ namespace CommunistTerraria
 		{
 			SafeForAssets = true;
 
-			//DecideOurTitle();
+			DecideOurTitle();
 
 			UpdateOurLogo();
 
@@ -173,7 +174,7 @@ namespace CommunistTerraria
 				"Order No.227: Not a step back!",
 			};
 
-			// Main.instance.Window.Title = moniker + ": " + Utils.SelectRandom(Main.rand, possibleAppendages);
+			Main.instance.Window.Title = moniker + ": " + Utils.SelectRandom(Main.rand, possibleAppendages);
 		}
 
 		private void Main_DrawMenu1(On.Terraria.Main.orig_DrawMenu orig, Main self, GameTime gameTime)
